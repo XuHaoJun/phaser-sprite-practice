@@ -44,8 +44,8 @@ function create() {
     comodo.animations.add('hurt', [38], 8, false, true);
     comodo.animations.add('dying', [39], 8, false, true);
     comodo.health = 5;
+    comodo.body.setSize(comodo.width-70, comodo.height-40, 0, 0);
     comodo.anchor.setTo(0.5, 0.5);
-    comodo.body.setSize(comodo.width-75, comodo.height-40, 0, 0);
     comodo.state = { hurting: false, died: false };
     comodo.hitRecoverTimer = 0;
     comodo.hitRecover = 500;
