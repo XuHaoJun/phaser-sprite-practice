@@ -49,6 +49,8 @@ function create() {
     comodo.state = { hurting: false, died: false };
     comodo.hitRecoverTimer = 0;
     comodo.hitRecover = 500;
+    comodo.reborn = 2500;
+    comodo.rebornTimer = 0;
     comodo.animations.play('idle');
 
     felock2 = game.add.sprite(450, 150, 'felock2');
@@ -122,12 +124,17 @@ function update() {
                 comodo.health -= 1;
                 if (comodo.health <= 0) {
                     comodo.state.died = true;
+                    comodo.rebornTimer = game.time.now + comodo.reborn;
                     comodo.animations.play('dying');
                     var fadeOut = game.add.tween(comodo);
                     fadeOut.to({ alpha: 0 },
                                2000,
                                Phaser.Easing.Linear.None, true);
-                    fadeOut.onComplete.add(function() { fadeOut.stop(); comodo.kill(); }, this);
+                    fadeOut.onComplete.add(function() {
+                        comodo.kill();
+                        comodo.alpha = 1;
+                        fadeOut.stop();
+                    }, this);
                 }
             }, this);
         } else {
@@ -144,5 +151,12 @@ function update() {
         comodo.hitRecoverTimer > 0 && comodo.state.died == false) {
         comodo.state.hurting = false;
         comodo.animations.play('idle');
+    }
+    if (game.time.now > comodo.rebornTimer &&
+        comodo.rebornTimer != 0 && comodo.state.died == true) {
+        comodo.scale.x *= -1;
+        comodo.state.died = false;
+        comodo.reset(game.rnd.integerInRange(50, 300), game.rnd.integerInRange(200, 390));
+        comodo.health = 5;
     }
 }
