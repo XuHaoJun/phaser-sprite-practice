@@ -1,15 +1,24 @@
-var game = new Phaser.Game(743, 396, Phaser.AUTO, 'game_div', { preload: preload, create: create, update: update, render: render});
+var game = new Phaser.Game(743, 396, Phaser.AUTO, 'game_div');
 
-function preload() {
-    game.load.audio('bgm', 'bgm.ogg');
-    game.load.audio('attackRod', '_attack_rod.ogg');
-    game.load.audio('hitRod', '_hit_rod.ogg');
-    game.load.spritesheet('felock', 'Geffen_Mage_02_noBG.png', 80, 130, 50);
-    game.load.spritesheet('felock2', 'Geffen_Mage_14_noBG.png', 90, 140, 50);
-    game.load.spritesheet('felock3', 'Felock_noBG.png', 60, 70, 50);
-    game.load.spritesheet('comodo', 'Comodo_noBG.png', 150, 100, 42);
-    game.load.image('background', 'back03.jpg');
-}
+var BootState = function(game) { };
+BootState.prototype = {
+    preload: function() {
+        game.load.image('loadingBar', 'preloader.gif');
+    },
+    create: function() {
+        game.input.maxPointers = 1;
+        game.stage.disableVisibilityChange = true;
+        game.state.start('main');
+    }
+};
+
+game.state.add('boot' , BootState);
+game.state.start('boot');
+
+
+var MainState = function(game) { };
+MainState.prototype = { preload: preload, create: create, update: update, render: render};
+game.state.add('main' , MainState);
 
 var felock;
 var felock2;
@@ -25,10 +34,22 @@ var bgm;
 var swing;
 var hitRod;
 
-function create() {
-    game.input.maxPointers = 1;
-    game.stage.disableVisibilityChange = true;
+function preload() {
+    var loadingBar = game.add.sprite(game.width/2, game.height/2, 'loadingBar');
+    loadingBar.anchor.setTo(0.5, 0.5);
+    game.load.setPreloadSprite(loadingBar);
+    game.load.audio('bgm', 'bgm.ogg');
+    game.load.audio('attackRod', '_attack_rod.ogg');
+    game.load.audio('hitRod', '_hit_rod.ogg');
+    game.load.spritesheet('felock', 'Geffen_Mage_02_noBG.png', 80, 130, 50);
+    game.load.spritesheet('felock2', 'Geffen_Mage_14_noBG.png', 90, 140, 50);
+    game.load.spritesheet('felock3', 'Felock_noBG.png', 60, 70, 50);
+    game.load.spritesheet('comodo', 'Comodo_noBG.png', 150, 100, 42);
+    game.load.image('background', 'back03.jpg');
+}
 
+
+function create() {
     background = game.add.tileSprite(0, 0, 743, 396, 'background');
     background.fixedToCamera = true;
 
