@@ -77,8 +77,8 @@ function create() {
 }
 
 function render() {
-    game.debug.body(felock);
-    game.debug.body(comodo);
+    // game.debug.body(felock);
+    // game.debug.body(comodo);
 }
 
 function update() {
