@@ -3,7 +3,7 @@ var game = new Phaser.Game(743, 396, Phaser.AUTO, 'game_div');
 var BootState = function(game) { };
 BootState.prototype = {
     preload: function() {
-        game.load.image('loadingBar', 'preloader.gif');
+        game.load.image('loadingBar', 'assets/preloader.gif');
     },
     create: function() {
         game.input.maxPointers = 1;
@@ -22,14 +22,14 @@ PreloaderState.prototype = {
         game.load.setPreloadSprite(loadingBar);
         loadingBar.scale.x = 3.9;
 
-        game.load.audio('bgm', 'bgm.ogg');
-        game.load.audio('attackRod', '_attack_rod.ogg');
-        game.load.audio('hitRod', '_hit_rod.ogg');
-        game.load.spritesheet('felock', 'Geffen_Mage_02_noBG.png', 80, 130, 50);
-        game.load.spritesheet('felock2', 'Geffen_Mage_14_noBG.png', 90, 140, 50);
-        game.load.spritesheet('felock3', 'Felock_noBG.png', 60, 70, 50);
-        game.load.spritesheet('comodo', 'Comodo_noBG.png', 150, 100, 42);
-        game.load.image('background', 'back03.jpg');
+        game.load.audio('bgm', 'assets/bgm.ogg');
+        game.load.audio('attackRod', 'assets/_attack_rod.ogg');
+        game.load.audio('hitRod', 'assets/_hit_rod.ogg');
+        game.load.spritesheet('felock', 'assets/Geffen_Mage_02_noBG.png', 80, 130, 50);
+        game.load.spritesheet('felock2', 'assets/Geffen_Mage_14_noBG.png', 90, 140, 50);
+        game.load.spritesheet('felock3', 'assets/Felock_noBG.png', 60, 70, 50);
+        game.load.spritesheet('comodo', 'assets/Comodo_noBG.png', 150, 100, 42);
+        game.load.image('background', 'assets/back03.jpg');
     },
     create: function() {
         game.state.start('main');
