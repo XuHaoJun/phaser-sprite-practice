@@ -130,7 +130,7 @@ function update() {
                     fadeOut.to({ alpha: 0 },
                                2000,
                                Phaser.Easing.Linear.None, true);
-                    fadeOut.onComplete.add(function() {
+                    fadeOut.onComplete.addOnce(function() {
                         comodo.kill();
                         comodo.alpha = 1;
                         fadeOut.stop();
