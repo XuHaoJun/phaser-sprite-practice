@@ -26,6 +26,9 @@ var swing;
 var hitRod;
 
 function create() {
+    game.input.maxPointers = 1;
+    game.stage.disableVisibilityChange = true;
+
     background = game.add.tileSprite(0, 0, 743, 396, 'background');
     background.fixedToCamera = true;
 
