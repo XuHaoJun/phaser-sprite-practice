@@ -1,5 +1,6 @@
 var game = new Phaser.Game(743, 396, Phaser.AUTO, 'game_div');
 
+
 var BootState = function(game) { };
 BootState.prototype = {
     preload: function() {
@@ -9,15 +10,12 @@ BootState.prototype = {
         game.input.maxPointers = 1;
         game.stage.disableVisibilityChange = true;
 
-        game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+        game.stage.scale.forceLandscape = true;
         game.scale.pageAlignHorizontally = true;
         game.scale.pageAlignVertically = true;
-        game.scale.setScreenSize(true);
-        if (game.device.desktop) {
-        } else {
-            game.scale.forceOrientation(true, false);
-            game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
-        }
+        game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+        game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
+        game.scale.setScreenSize(false);
 
         game.state.start('preloader');
     }
@@ -62,15 +60,24 @@ var cursors;
 var attackButton;
 var facing = 'right';
 var attacking = false;
+var walking = false;
 var attackTimer = 0;
 var bgm;
 var swing;
 var hitRod;
 
-function gofull() { }
-
 function create() {
-    game.input.onDown.add(function() {game.scale.startFullScreen(false);}, this);
+    if (game.device.desktop == false) {
+        game.input.onDown.add(function() {
+            game.scale.forceOrientation(true, false);
+            game.scale.startFullScreen(false);
+        }, this);
+    } else {
+        game.input.onDown.add(function() {
+            game.scale.startFullScreen(false);
+        }, this);
+    }
+
     background = game.add.tileSprite(0, 0, 743, 396, 'background');
     background.fixedToCamera = true;
 
@@ -129,28 +136,8 @@ function render() {
 function update() {
     felock.body.velocity.x = 0;
     felock.body.velocity.y = 0;
-    if (cursors.left.isDown)
-    {
-        if (facing == 'right') {
-            felock.scale.x *= -1;
-        }
-        facing = 'left';
-        felock.body.velocity.x = -80;
-        felock.animations.play('walk');
-    } else if(cursors.right.isDown) {
-        if (facing == 'left') {
-            felock.scale.x *= -1;
-        }
-        facing = 'right';
-        felock.body.velocity.x = 80;
-        felock.animations.play('walk');
-    } else if (cursors.up.isDown) {
-        felock.body.velocity.y = -80;
-        felock.animations.play('walk');
-    } else if (cursors.down.isDown) {
-        felock.body.velocity.y = 80;
-        felock.animations.play('walk');
-    } else if (attackButton.isDown && game.time.now > attackTimer) {
+
+    if (attackButton.isDown && game.time.now > attackTimer)  {
         var canHitComodo = false;
         attacking = true;
         felock.animations.play('attack');
@@ -186,7 +173,40 @@ function update() {
             swing.play('', 0, 1, false, false);
         }
         attackTimer = game.time.now + 600;
-    } else if(!attacking) {
+    }
+
+    if (attacking == false) {
+        walking = false;
+        if (cursors.left.isDown) {
+            if (facing == 'right') {
+                felock.scale.x *= -1;
+            }
+            facing = 'left';
+            felock.body.velocity.x = -80;
+            felock.animations.play('walk');
+            walking = true;
+        } else if(cursors.right.isDown) {
+            if (facing == 'left') {
+                felock.scale.x *= -1;
+            }
+            facing = 'right';
+            felock.body.velocity.x = 80;
+            felock.animations.play('walk');
+            walking = true;
+        }
+
+        if (cursors.up.isDown) {
+            felock.body.velocity.y = -80;
+            felock.animations.play('walk');
+            walking = true;
+        } else if (cursors.down.isDown) {
+            felock.body.velocity.y = 80;
+            felock.animations.play('walk');
+            walking = true;
+        }
+    }
+
+    if(!attacking && !walking) {
         felock.animations.play('idle');
     }
     if (game.time.now > attackTimer && attackTimer != 0) {
