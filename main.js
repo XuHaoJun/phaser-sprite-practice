@@ -10,7 +10,7 @@ BootState.prototype = {
         game.input.maxPointers = 1;
         game.stage.disableVisibilityChange = true;
 
-        game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+        game.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;
         game.stage.scale.minWidth = 480;
         game.stage.scale.minHeight = 260;
         game.stage.scale.maxWidth = 1024;
@@ -19,7 +19,8 @@ BootState.prototype = {
         game.scale.pageAlignHorizontally = true;
         game.scale.pageAlignVertically = true;
         game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
-        game.scale.setScreenSize(false);
+        game.scale.setScreenSize();
+        game.scale.refresh();
 
         game.state.start('preloader');
     }
@@ -125,8 +126,6 @@ function create() {
     felock.animations.add('idle', [0, 1, 2, 3, 4], 10, true, true);
     felock.animations.add('walk', [10, 11, 12, 13, 14, 15, 16, 17], 10, true, true);
     felock.animations.add('attack', [30, 31, 32, 33, 34, 35, 36], 12, false, true);
-    felock.inputEnabled = true;
-    felock.input.enableDrag();
 
     cursors = game.input.keyboard.createCursorKeys();
     attackButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
