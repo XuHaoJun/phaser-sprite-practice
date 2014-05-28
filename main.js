@@ -27,8 +27,8 @@ PreloaderState.prototype = {
         loadingBar.scale.x = 3.9;
 
         game.load.audio('bgm', 'assets/bgm.ogg');
-        game.load.audio('attackRod', 'assets/_attack_rod.ogg');
-        game.load.audio('hitRod', 'assets/_hit_rod.ogg');
+        game.load.audio('attackRod', 'assets/attack_rod.ogg');
+        game.load.audio('hitRod', 'assets/hit_rod.ogg');
         game.load.spritesheet('felock', 'assets/Geffen_Mage_02_noBG.png', 80, 130, 50);
         game.load.spritesheet('felock2', 'assets/Geffen_Mage_14_noBG.png', 90, 140, 50);
         game.load.spritesheet('felock3', 'assets/Felock_noBG.png', 60, 70, 50);
