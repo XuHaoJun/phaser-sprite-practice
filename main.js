@@ -10,10 +10,14 @@ BootState.prototype = {
         game.input.maxPointers = 1;
         game.stage.disableVisibilityChange = true;
 
+        game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+        game.stage.scale.minWidth = 480;
+        game.stage.scale.minHeight = 260;
+        game.stage.scale.maxWidth = 1024;
+        game.stage.scale.maxHeight = 768;
         game.stage.scale.forceLandscape = true;
         game.scale.pageAlignHorizontally = true;
         game.scale.pageAlignVertically = true;
-        game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
         game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
         game.scale.setScreenSize(false);
 
