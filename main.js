@@ -10,15 +10,11 @@ BootState.prototype = {
         game.stage.disableVisibilityChange = true;
 
         if (game.device.desktop) {
-            game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-        }
-        else {
-            game.scale.scaleMode = Phaser.ScaleManager.NO_BORDER;
+            // may be do something with it
+        } else {
             game.scale.forceOrientation(true, false);
-            game.scale.hasResized.add(game.gameResized, game);
-            game.scale.enterIncorrectOrientation.add(game.enterIncorrectOrientation, game);
-            game.scale.leaveIncorrectOrientation.add(game.leaveIncorrectOrientation, game);
         }
+        game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
         game.scale.pageAlignHorizontally = true;
         game.scale.pageAlignVertically = true;
         game.scale.setScreenSize(true);
