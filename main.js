@@ -8,6 +8,10 @@ BootState.prototype = {
     create: function() {
         game.input.maxPointers = 1;
         game.stage.disableVisibilityChange = true;
+
+        game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+        game.scale.setScreenSize();
+
         game.state.start('preloader');
     }
 };
