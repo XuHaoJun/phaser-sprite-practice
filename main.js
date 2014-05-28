@@ -9,7 +9,6 @@ BootState.prototype = {
         game.input.maxPointers = 1;
         game.stage.disableVisibilityChange = true;
 
-        alert(game.device.desktop);
         if (game.device.desktop) {
             game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
         }
