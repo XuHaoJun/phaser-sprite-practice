@@ -1,4 +1,4 @@
-var game = new Phaser.Game(743, 396, Phaser.AUTO, 'game_div');
+var game = new Phaser.Game(800, 600, Phaser.AUTO, 'game_div');
 
 
 var BootState = function(game) { };
@@ -84,7 +84,14 @@ function create() {
     }
 
     background = game.add.tileSprite(0, 0, 743, 396, 'background');
+    background.scale.x = 2;
+    background.scale.y = 1.2;
     background.fixedToCamera = true;
+
+    var text = "There plan to puts character infomation.\nexample:\nname:kiki\nhp:30";
+    var style = { font: "25px Arial", fill: "#1f8544", align: "center" };
+    var t = game.add.text(400, 540, text, style);
+    t.anchor.setTo(0.5, 0.5);
 
     bgm = game.add.audio('bgm', 1, true);
     bgm.play('', 0, 0.3, true);
