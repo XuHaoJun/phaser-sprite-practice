@@ -9,15 +9,15 @@ BootState.prototype = {
         game.input.maxPointers = 1;
         game.stage.disableVisibilityChange = true;
 
-        if (game.device.desktop) {
-            // may be do something with it
-        } else {
-            game.scale.forceOrientation(true, false);
-        }
         game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
         game.scale.pageAlignHorizontally = true;
         game.scale.pageAlignVertically = true;
         game.scale.setScreenSize(true);
+        if (game.device.desktop) {
+        } else {
+            game.scale.forceOrientation(true, false);
+            game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
+        }
 
         game.state.start('preloader');
     }
@@ -67,7 +67,10 @@ var bgm;
 var swing;
 var hitRod;
 
+function gofull() { }
+
 function create() {
+    game.input.onDown.add(function() {game.scale.startFullScreen(false);}, this);
     background = game.add.tileSprite(0, 0, 743, 396, 'background');
     background.fixedToCamera = true;
 
