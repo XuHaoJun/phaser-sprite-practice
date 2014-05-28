@@ -9,8 +9,20 @@ BootState.prototype = {
         game.input.maxPointers = 1;
         game.stage.disableVisibilityChange = true;
 
-        game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-        game.scale.setScreenSize();
+        alert(game.device.desktop);
+        if (game.device.desktop) {
+            game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+        }
+        else {
+            game.scale.scaleMode = Phaser.ScaleManager.NO_BORDER;
+            game.scale.forceOrientation(true, false);
+            game.scale.hasResized.add(game.gameResized, game);
+            game.scale.enterIncorrectOrientation.add(game.enterIncorrectOrientation, game);
+            game.scale.leaveIncorrectOrientation.add(game.leaveIncorrectOrientation, game);
+        }
+        game.scale.pageAlignHorizontally = true;
+        game.scale.pageAlignVertically = true;
+        game.scale.setScreenSize(true);
 
         game.state.start('preloader');
     }
